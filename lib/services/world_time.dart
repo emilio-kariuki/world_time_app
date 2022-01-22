@@ -6,7 +6,8 @@ class WorldTime {
   String location; //loaction name for the UI
   late String time; //the time in that loaction
   String flag; //url to an asset flag icon
-  String url; //loaction url for an api endpoint
+  String url;
+  bool ?isDayTime; //loaction url for an api endpoint
 
   WorldTime({required this.location, required this.flag, required this.url});
 
