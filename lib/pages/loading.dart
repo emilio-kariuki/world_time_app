@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:http/http.dart" as http;
+import "package:http/http.dart";
 import "dart:convert";
 
 class Loading extends StatefulWidget {
@@ -10,18 +10,26 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  void getData() async {
+  void getTime() async {
+    // make request
+    Response response = await get(
+        Uri.parse("https://worldtimeapi.org/api/timezone/Africa/Nairobi"));
+    Map data = jsonDecode(response.body);
+    // print(data);
+    // get properties
+    String datetime = data['utc_datetime'];
     // ignore: unused_local_variable
-    http.Response response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    String offset = data['utc_offset'];
     // ignore: avoid_print
-    print(response.body);
+    // print(datetime);
+    // print(offset);
+    // create a datetime object
   }
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getTime();
   }
 
   @override
