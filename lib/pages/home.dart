@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
   Map data = {};
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     print(data);
 
     // setting background
@@ -36,22 +36,28 @@ class _HomeState extends State<Home> {
             children: [
               Center(
                 child: FlatButton.icon(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/location");
+                    onPressed: () async {
+                      dynamic result =
+                          await Navigator.pushNamed(context, "/location");
+                      setState(() {
+                        data = {
+                          "location":result["location"],
+                          "flag" : result["flag"],
+                          "time" : result["time"],
+                          "isDayTime" :result["isDayTime"],
+
+                        };
+                      });
                     },
-                    icon: Icon(
-                      Icons.edit_location,
-                      color: Colors.grey[300],
-                      size: 10
-                      ),
+                    icon: Icon(Icons.edit_location,
+                        color: Colors.grey[300], size: 10),
                     label: Text(
                       "Edit Location",
                       style: TextStyle(
                         // fontSize: 10,
                         color: Colors.grey[300],
                       ),
-                      )
-                  ),
+                    )),
               ),
               SizedBox(height: 10),
               Row(
@@ -67,7 +73,8 @@ class _HomeState extends State<Home> {
                 ],
               ),
               SizedBox(height: 10),
-              Text(data['time'], style: TextStyle(fontSize: 66,color: Colors.white)),
+              Text(data['time'],
+                  style: TextStyle(fontSize: 66, color: Colors.white)),
             ],
           )),
         ),

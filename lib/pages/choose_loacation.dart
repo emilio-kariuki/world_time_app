@@ -23,8 +23,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
   ];
 
   void updateTime(index) async {
-    WorldTime obj_1 = locations[index];
-    await obj_1.getTime();
+    WorldTime obj = locations[index];
+    await obj.getTime();
+    // navigate to home
+    Navigator.pop(context, {
+      "location": obj.location,
+      "flag" : obj.flag,
+      "time" : obj.time,
+      "isDayTime" : obj.isDayTime,
+    });
   }
 
   String? place;
