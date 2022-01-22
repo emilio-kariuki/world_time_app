@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+// import "loading.dart";
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -12,6 +13,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final Object? data = ModalRoute.of(context)?.settings.arguments;
+    // ignore: avoid_print
+    print(data);
     return Scaffold(
       body: SafeArea(
           child: Column(
